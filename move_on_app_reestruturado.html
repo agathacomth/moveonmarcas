@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoveOn Marcas</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --teal:#69cad7;
+  --cream:#f0f0ec;
+  --black:#0a1a1d;
+}
+
+body{
+  margin:0;
+  font-family:Montserrat, sans-serif;
+  background:var(--cream);
+  color:#111;
+}
+
+section{
+  padding:60px 20px;
+}
+
+/* HERO (mantém escuro) */
+#hero{
+  background:var(--black);
+  color:#fff;
+  text-align:center;
+}
+
+/* CAROUSEL */
+.carousel{
+  position:relative;
+  max-width:520px;
+  margin:auto;
+}
+
+.carousel-track{
+  overflow:hidden;
+  border-radius:12px;
+}
+
+.carousel-slide{
+  width:100%;
+  display:none;
+}
+
+.carousel-slide.active{
+  display:block;
+}
+
+.carousel-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,0.5);
+  color:white;
+  border:none;
+  font-size:2rem;
+  padding:5px 10px;
+  cursor:pointer;
+  border-radius:50%;
+}
+
+.prev{left:-10px;}
+.next{right:-10px;}
+
+/* STORIES */
+.stories-wrapper{
+  position:relative;
+  max-width:260px;
+  margin:auto;
+}
+
+.story-sequence{
+  display:none;
+  flex-direction:column;
+  gap:10px;
+}
+
+.story-sequence.active{
+  display:flex;
+}
+
+.story-sequence img{
+  width:100%;
+  border-radius:12px;
+}
+
+.story-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:black;
+  color:white;
+  border:none;
+  font-size:1.5rem;
+  padding:5px;
+  cursor:pointer;
+}
+
+.story-nav.prev{left:-30px;}
+.story-nav.next{right:-30px;}
+
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section id="hero">
+  <h1>Proteja sua Marca</h1>
+</section>
+
+<!-- CARROSSEL 1 -->
+<section>
+  <h2>Carrossel</h2>
+  <div class="carousel">
+    <button class="carousel-btn prev">‹</button>
+    <div class="carousel-track">
+      <img src="img1.jpg" class="carousel-slide active">
+      <img src="img2.jpg" class="carousel-slide">
+      <img src="img3.jpg" class="carousel-slide">
+    </div>
+    <button class="carousel-btn next">›</button>
+  </div>
+</section>
+
+<!-- STORIES -->
+<section>
+  <h2>Stories</h2>
+  <div class="stories-wrapper">
+
+    <button class="story-nav prev">‹</button>
+
+    <div class="story-sequence active">
+      <img src="story1.jpg">
+      <img src="story2.jpg">
+      <img src="story3.jpg">
+    </div>
+
+    <div class="story-sequence">
+      <img src="story4.jpg">
+      <img src="story5.jpg">
+    </div>
+
+    <button class="story-nav next">›</button>
+
+  </div>
+</section>
+
+<script>
+
+// CAROUSEL
+
+document.querySelectorAll('.carousel').forEach(carousel=>{
+  const slides=carousel.querySelectorAll('.carousel-slide');
+  let index=0;
+
+  function show(i){
+    slides.forEach(s=>s.classList.remove('active'));
+    slides[i].classList.add('active');
+  }
+
+  carousel.querySelector('.next').onclick=()=>{
+    index=(index+1)%slides.length;
+    show(index);
+  }
+
+  carousel.querySelector('.prev').onclick=()=>{
+    index=(index-1+slides.length)%slides.length;
+    show(index);
+  }
+});
+
+// STORIES
+
+const sequences=document.querySelectorAll('.story-sequence');
+let current=0;
+
+function showStory(i){
+  sequences.forEach(s=>s.classList.remove('active'));
+  sequences[i].classList.add('active');
+}
+
+document.querySelector('.story-nav.next').onclick=()=>{
+  current=(current+1)%sequences.length;
+  showStory(current);
+}
+
+document.querySelector('.story-nav.prev').onclick=()=>{
+  current=(current-1+sequences.length)%sequences.length;
+  showStory(current);
+}
+
+</script>
+
+</body>
+</html>
